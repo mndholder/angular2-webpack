@@ -8,8 +8,8 @@ var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
-var DashboardPlugin = require('webpack-dashboard/plugin');
 var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
+var WebpackNotifierPlugin = require('webpack-notifier');
 
 /**
  * Env
@@ -71,6 +71,11 @@ module.exports = function makeWebpackConfig() {
     config.resolve = {
         // only discover files that have those extensions
         extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html'],
+        alias: {
+            'app': root('app', 'ts'),
+            'styles': root('app', 'style'),
+            'assets': root('app', 'assets')
+        }
     };
 
     var atlOptions = '';
@@ -133,7 +138,7 @@ module.exports = function makeWebpackConfig() {
 
             // support for .html as raw text
             // todo: change the loader to something that adds a hash to images
-            {test: /\.html$/, loader: 'raw-loader', exclude: root('app', 'public')}
+            {test: /\.html$/, loader: 'raw-loader', exclude: root('app', 'assets')}
         ]
     };
 
@@ -212,10 +217,6 @@ module.exports = function makeWebpackConfig() {
         })
     ];
 
-    if (!isTest && !isProd) {
-        config.plugins.push(new DashboardPlugin());
-    }
-
     if (!isTest && !isTestWatch) {
         config.plugins.push(
             new ForkCheckerPlugin(),
@@ -230,14 +231,18 @@ module.exports = function makeWebpackConfig() {
             // Inject script and link tags into html files
             // Reference: https://github.com/ampedandwired/html-webpack-plugin
             new HtmlWebpackPlugin({
-                template: './app/public/index.html',
+                template: './app/index.html',
                 chunksSortMode: 'dependency'
             }),
 
             // Extract css files
             // Reference: https://github.com/webpack/extract-text-webpack-plugin
             // Disabled when in test mode or not in build mode
-            new ExtractTextPlugin({filename: 'css/[name].[hash].css', disable: !isProd})
+            new ExtractTextPlugin({filename: 'css/[name].[hash].css', disable: !isProd}),
+
+            // Webpack Notifier plugin
+            // Reference: https://www.npmjs.com/package/webpack-notifier
+            new WebpackNotifierPlugin()
         );
     }
 
@@ -259,7 +264,8 @@ module.exports = function makeWebpackConfig() {
             // Copy assets from the public folder
             // Reference: https://github.com/kevlened/copy-webpack-plugin
             new CopyWebpackPlugin([{
-                from: root('app/public')
+                from: root('app/assets'),
+                to: root('dist/assets')
             }])
         );
     }
@@ -270,9 +276,9 @@ module.exports = function makeWebpackConfig() {
      * Reference: http://webpack.github.io/docs/webpack-dev-server.html
      */
     config.devServer = {
-        contentBase: './app/public',
+        contentBase: './app',
         historyApiFallback: true,
-        quiet: true,
+        quiet: false,
         stats: 'minimal' // none (or false), errors-only, minimal, normal (or true) and verbose
     };
 

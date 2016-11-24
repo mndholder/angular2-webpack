@@ -7,3 +7,6 @@ import { ApiService } from './services/api.service';
     ]
 })
 export class CommonModule {}
+
+// Add module exports here for shortcuts
+export {ApiService};

@@ -10,7 +10,7 @@
         "clean-start": "npm run clean-install && npm start",
         "watch": "webpack --watch --progress --profile",
         "build": "rimraf dist && webpack --progress --profile --bail",
-        "dev": "webpack-dev-server --progress --profile --port 8080",
+        "dev": "webpack-dev-server --progress --port 8080",
         "webdriver:update": "webdriver-manager update",
         "webdriver:start": "webdriver-manager start",
         "lint": "tslint \"src/**/*.ts\"",
@@ -95,7 +95,7 @@
         "typescript": "2.0.6",
         "url-loader": "^0.5.6",
         "webpack": "^2.1.0-beta.25",
-        "webpack-dashboard": "^0.2.0",
-        "webpack-dev-server": "2.1.0-beta.9"
+        "webpack-dev-server": "2.1.0-beta.9",
+        "webpack-notifier": "1.4.1"
     }
 }
