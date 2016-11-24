@@ -73,7 +73,7 @@ module.exports = function makeWebpackConfig() {
         extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html'],
         alias: {
             'app': root('app', 'ts'),
-            'styles': root('app', 'style'),
+            'styles': root('app', 'styles'),
             'assets': root('app', 'assets')
         }
     };
@@ -110,7 +110,7 @@ module.exports = function makeWebpackConfig() {
 
             // Support for CSS as raw text
             // use 'null' loader in test mode (https://github.com/webpack/null-loader)
-            // all css in app/style will be bundled in an external css file
+            // all css in app/styles will be bundled in an external css file
             {
                 test: /\.css$/,
                 exclude: root('app', 'ts'),
@@ -124,7 +124,7 @@ module.exports = function makeWebpackConfig() {
 
             // support for .scss files
             // use 'null' loader in test mode (https://github.com/webpack/null-loader)
-            // all css in app/style will be bundled in an external css file
+            // all css in app/styles will be bundled in an external css file
             {
                 test: /\.(scss|sass)$/,
                 exclude: root('app', 'ts'),
@@ -134,7 +134,7 @@ module.exports = function makeWebpackConfig() {
                 })
             },
             // all css required in app/ts files will be merged in js files
-            {test: /\.(scss|sass)$/, exclude: root('app', 'style'), loader: 'raw-loader!postcss-loader!sass-loader'},
+            {test: /\.(scss|sass)$/, exclude: root('app', 'styles'), loader: 'raw-loader!postcss-loader!sass-loader'},
 
             // support for .html as raw text
             // todo: change the loader to something that adds a hash to images
