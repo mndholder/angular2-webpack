@@ -118,15 +118,15 @@
         "component-class-suffix": true,
         "directive-class-suffix": true,
         "directive-selector-prefix": [
-            true,
+            false,
             "my"
         ],
         "component-selector-prefix": [
-            true,
+            false,
             "my"
         ],
         "pipe-naming": [
-            true,
+            false,
             "camelCase",
             "my"
         ]

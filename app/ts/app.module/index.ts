@@ -1,50 +1,32 @@
-import { NgModule, ApplicationRef } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
-import { CommonModule } from '../common.module';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './services/in-memory-data.service';
 
-import { AppComponent } from './components/app/app.component';
-import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
-import { routing } from './routing';
-
-import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
+import { AppComponent } from './components/app.component';
+import { AppRoutingModule, routedComponents } from '../app.routing.module';
+import { HeroService } from './services/hero.service';
+import { HeroSearchComponent } from './components/hero-search.component';
 
 @NgModule({
     imports: [
         BrowserModule,
-        HttpModule,
         FormsModule,
-        CommonModule,
-        routing
+        AppRoutingModule,
+        HttpModule,
+        InMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 600 })
     ],
     declarations: [
         AppComponent,
-        HomeComponent,
-        AboutComponent
+        HeroSearchComponent,
+        routedComponents
+    ],
+    providers: [
+        HeroService
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {
-    constructor(public appRef: ApplicationRef) {}
-
-    hmrOnInit(store) {
-        console.log('HMR store', store);
-    }
-
-    hmrOnDestroy(store) {
-        let cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
-        // recreate elements
-        store.disposeOldHosts = createNewHosts(cmpLocation);
-        // remove styles
-        removeNgStyles();
-    }
-
-    hmrAfterDestroy(store) {
-        // display new elements
-        store.disposeOldHosts();
-        delete store.disposeOldHosts;
-    }
-}
+export class AppModule {}
