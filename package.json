@@ -13,10 +13,11 @@
         "dev": "webpack-dev-server --progress --port 8080",
         "webdriver:update": "webdriver-manager update",
         "webdriver:start": "webdriver-manager start",
-        "lint": "tslint \"app/**/*.ts\"",
+        "lint": "npm run lint:app && npm run lint:tests",
+        "lint:app": "tslint \"app/**/*.ts\"",
+        "lint:tests": "tslint \"tests/**/*.ts\"",
         "pree2e": "npm run webdriver:update -- --standalone",
         "e2e": "protractor",
-        "pree2e-standalone": "npm run webdriver:update -- --standalone",
         "e2e-standalone": "node node/e2e-standalone.js",
         "pretest": "npm run lint",
         "test": "karma start",
@@ -26,8 +27,9 @@
         "docs": "typedoc --options typedoc.json src/app/app.component.ts",
         "start": "npm run dev",
         "start:hmr": "npm run dev -- --hot",
+        "server": "http-server dist/ --push-state",
         "preserve": "npm run build",
-        "serve": "http-server dist/ --push-state"
+        "serve": "npmr un server"
     },
     "dependencies": {
         "@angular/common": "2.2.0",
