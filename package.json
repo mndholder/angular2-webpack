@@ -29,7 +29,7 @@
         "start:hmr": "npm run dev -- --hot",
         "server": "http-server dist/ --push-state",
         "preserve": "npm run build",
-        "serve": "npmr un server"
+        "serve": "npm run server"
     },
     "dependencies": {
         "@angular/common": "2.2.0",
