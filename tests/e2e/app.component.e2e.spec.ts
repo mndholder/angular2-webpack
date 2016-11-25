@@ -7,7 +7,7 @@ describe('App', () => {
     });
 
     it('should have a title', () =>  {
-        expect(browser.getTitle()).toEqual("Angular 2 App | ng2-webpack");
+        expect(browser.getTitle()).toEqual('Angular 2 App | ng2-webpack');
     });
 
     it('should have <header>', () =>  {
@@ -23,7 +23,7 @@ describe('App', () => {
     });
 
     it('should have <footer>', () =>  {
-        expect(element(by.css('my-app footer')).getText()).toEqual("Webpack Angular 2 Starter");
+        expect(element(by.css('my-app footer')).getText()).toEqual('Webpack Angular 2 Starter');
     });
 
 });
