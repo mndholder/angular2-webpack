@@ -46,7 +46,7 @@ module.exports = function makeWebpackConfig() {
      * Entry
      * Reference: http://webpack.github.io/docs/configuration.html#entry
      */
-    config.entry = isTest ? {} : {
+    config.entry = isTest ? undefined : {
         'polyfills': './app/ts/polyfills.ts',
         'vendor': './app/ts/vendor.ts',
         'app': './app/ts/main.ts' // our angular app
